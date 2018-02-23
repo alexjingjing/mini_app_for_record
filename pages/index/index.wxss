@@ -1,7 +1,7 @@
 /**index.wxss**/
 .userinfo {
   display: flex;
-  flex-direction: column;
+  flex-direction:column;
   align-items: center;
 }
 
@@ -18,4 +18,8 @@
 
 .usermotto {
   margin-top: 200px;
+}
+
+.stock-list {
+  padding: 4px 6px 48px;
 }

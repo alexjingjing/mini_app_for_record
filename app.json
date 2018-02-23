@@ -4,9 +4,10 @@
     "pages/logs/logs"
   ],
   "window":{
+    "enablePullDownRefresh": true,
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "股价记录",
+    "navigationBarTitleText": "我的记录",
     "navigationBarTextStyle":"black"
   }
 }
