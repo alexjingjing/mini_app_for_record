@@ -23,3 +23,12 @@
 .stock-list {
   padding: 4px 6px 48px;
 }
+
+.checkbox {
+  display: flex;
+  flex-direction:row;
+}
+
+.margin-button {
+  margin: 20rpx;
+}
