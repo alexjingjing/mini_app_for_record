@@ -1,7 +1,9 @@
 //index.js
 //获取应用实例
 const AV = require('../../utils/av-live-query-weapp-min');
-const UserStock = require('../../model/user-stock')
+const util = require('../../utils/util.js');
+const UserStock = require('../../model/user-stock');
+const StockPrice = require('../../model/stock-price');
 const app = getApp()
 
 Page({
@@ -14,13 +16,15 @@ Page({
       { name: 'GOOG', value: '谷歌' },
       { name: 'AMZN', value: '亚马逊' },
       { name: 'FB', value: 'FaceBook' },
-      { name: 'APPL', value: '苹果' },
+      { name: 'AAPL', value: '苹果' },
       { name: '00700', value: '腾讯' },
       { name: 'BABA', value: '阿里巴巴' },
       { name: 'TSLA', value: '特斯拉' },
     ],
+    day: '',
     stockList: [],
     stockResultList: [],
+    stockDisplayList: [],
     chosenList: [],
     listData: [
       { "code": "01", "text": "text1", "type": "type1" },
@@ -47,15 +51,79 @@ Page({
     query.find().then(result => {
       if (result.length > 0) {
         this.setData({
-          stockList: result[0].stockList
-        })
-        
+          stockList: result[0].stockList,
+          day: result[0].day
+        });
+        this.getStockResultList(result[0].stockList, this.getDateList(result[0].day));
       }
     });
   },
+  getStockResultList: function (stockList, dateList) {
+    // 根据stockList获取stockPrice
+    for (var i = 0; i < stockList.length; i++) {
+      const stockQuery = new AV.Query(StockPrice)
+        .equalTo('code', stockList[i])
+        .containedIn('date', dateList)
+        .ascending('date');
+      stockQuery.find().then(result => {
+        this.formStockResultList(stockQuery._where.code, result);
+      })
+    };
+  },
+  formStockResultList: function(code, resultList) {
+    var o = {};
+    var values = [];
+    o.code = code;
+    var xAxis = [];
+    var prices = [];
+    var percents = [];
+    for (var i = 0; i < resultList.length; i++) {
+      var value = {};
+      value.date = resultList[i].date;
+      value.price = resultList[i].price;
+      xAxis.push(resultList[i].date);
+      prices.push(resultList[i].price);
+      var percent = parseFloat((((resultList[i].price - resultList[0].price) / resultList[0].price) * 100).toFixed(2));
+      percents.push(percent);
+      value.percent = percent;
+      values.push(value);
+    }
+    o.xAxis = xAxis;
+    o.prices = prices;
+    o.percents = percents;
+    o.values = values;
+    this.data.stockResultList.push(o);
+    this.checkStockResultList();
+  },
+  checkStockResultList: function() {
+    if (this.data.stockResultList.length == this.data.stockList.length) {
+      var sortedList = this.data.stockResultList.sort(function (a, b) { 
+        if (a['code'] > b['code']) {
+          return 1; // 如果是降序排序，返回-1。
+        } else if (a['code'] === b['code']) {
+          return 0;
+        } else {
+          return -1; // 如果是降序排序，返回1。
+        }
+        })
+      this.setData({
+        stockDisplayList: sortedList
+      })
+    }
+  },
+  getDateList: function(day) {
+    var dates = [];
+    if (!day || day == undefined) {
+      day = 1;
+    }
+    for (var i = 0; i < 10; i++) {
+      var d = new Date();
+      var targetDate = new Date(d.getFullYear(), d.getMonth() - i, day);
+      dates.push(util.formatMyTime(targetDate));
+    }
+    return dates;
+  },
   addUserStockList: function () {
-    console.log(this.data.stockList.length);
-    console.log(this.data.chosenList);
     if (this.data.chosenList.length == 0) {
       wx.showToast({
         title: '请选择公司',
@@ -66,6 +134,7 @@ Page({
     if (this.data.stockList.length == 0) {
       // 没有相关数据
       // 可以添加
+      var date = new Date();
       var acl = new AV.ACL();
       acl.setPublicReadAccess(false);
       acl.setPublicWriteAccess(false);
@@ -73,7 +142,8 @@ Page({
       acl.setWriteAccess(AV.User.current(), true);
       new UserStock({
         stockList: this.data.chosenList,
-        user: AV.User.current()
+        user: AV.User.current(),
+        day: date.getDate()
       }).setACL(acl).save().then((result) => {
         console.log(result);
         wx.showToast({
@@ -82,7 +152,8 @@ Page({
         this.setData({
           stockList: this.data.chosenList,
           chosenList: []
-        })
+        });
+        this.getUserStockList(AV.User.current());
       }).catch(error => this.showNetworkError());
     }
   },
@@ -94,7 +165,6 @@ Page({
     })
   },
   checkboxChange: function (e) {
-    console.log('checkbox发生change事件，携带value值为：', e.detail.value)
     this.setData({
       chosenList: e.detail.value
     })
@@ -102,7 +172,7 @@ Page({
   //事件处理函数
   bindViewTap: function () {
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '../about/about'
     })
   },
   checkUserStock: function () {

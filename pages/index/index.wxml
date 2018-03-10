@@ -9,7 +9,7 @@
   </view>
   <view wx-if="{{stockList.length==0}}">
     <block>
-      <text>请选择你关注的：</text>
+      <text class='panel-text'>请选择你关注的：</text>
       <checkbox-group bindchange="checkboxChange">
         <label class="checkbox" wx:for="{{items}}" wx:key="{{item.value}}">
           <checkbox value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
@@ -19,26 +19,32 @@
     </block>
   </view>
   <view wx-if="{{stockList.length!=0}}">
-    <text>我的股票记录：</text>
-    <view class="table">
-      <view class="tr bg-w">
-        <view class="th">head1</view>
-        <view class="th">head2</view>
-        <view class="th ">head3</view>
-      </view>
-      <block wx:for="{{listData}}" wx:key="{{code}}">
-        <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-          <view class="td">{{item.code}}</view>
-          <view class="td">{{item.text}}</view>
-          <view class="td">{{item.type}}</view>
-        </view>
-        <view class="tr" wx:else>
-          <view class="td">{{item.code}}</view>
-          <view class="td">{{item.text}}</view>
-          <view class="td">{{item.type}}</view>
+    <text class='panel-text'>我的公司记录：</text>
+    <view class="stock-list">
+      <block wx:for="{{stockDisplayList}}" wx:for-item="stock" wx:key="objectId">
+        <view class='panel-text'>{{stock.code}}:</view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">时间</view>
+            <view class="th">价值</view>
+            <view class="th">比率</view>
+          </view>
+          <block wx:for="{{stock.values}}" wx:key="{{date}}">
+            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+              <view class="td">{{item.date}}</view>
+              <view class="td">{{item.price}}</view>
+              <view class="td">{{item.percent}}</view>
+            </view>
+            <view class="tr" wx:else>
+              <view class="td">{{item.date}}</view>
+              <view class="td">{{item.price}}</view>
+              <view class="td">{{item.percent}}</view>
+            </view>
+          </block>
         </view>
       </block>
     </view>
+
     <view class="stock-list">
       <block wx:for="{{stockResultList}}" wx:for-item="stock" wx:key="objectId">
 

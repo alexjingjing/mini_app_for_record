@@ -32,3 +32,11 @@
 .margin-button {
   margin: 20rpx;
 }
+
+.panel-text {
+  border-left-style: solid;
+  border-left-width: 4px;
+  border-left-color: rgb(112, 112, 122);
+  margin: 8rpx;
+  padding-left: 8px;
+}

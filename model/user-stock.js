@@ -8,6 +8,13 @@ class UserStock extends AV.Object {
     this.set('user', value);
   }
 
+  get day() {
+    return this.get('day');
+  }
+  set day(value) {
+    this.set('day', value);
+  }
+
   get stockList() {
     return this.get('stockList');
   }
