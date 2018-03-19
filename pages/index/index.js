@@ -78,6 +78,7 @@ Page({
     var prices = [];
     var percents = [];
     for (var i = 0; i < resultList.length; i++) {
+      o.name = resultList[i].name;
       var value = {};
       value.date = resultList[i].date;
       value.price = resultList[i].price;
@@ -97,7 +98,24 @@ Page({
   },
   checkStockResultList: function() {
     if (this.data.stockResultList.length == this.data.stockList.length) {
-      var sortedList = this.data.stockResultList.sort(function (a, b) { 
+      var finalResult = [];
+      for (var i = 0; i < this.data.stockResultList.length; i ++) {
+        var o = {};
+        o.code = this.data.stockResultList[i].code;
+        o.name = this.data.stockResultList[i].name;
+        if (this.data.stockResultList[i].prices && this.data.stockResultList[i].prices.length > 0) {
+          o.recentPrice = this.data.stockResultList[i].prices[0];
+          o.recentPercent = this.data.stockResultList[i].percents[0];
+        }
+        if (this.data.stockResultList[i].prices && this.data.stockResultList[i].prices.length > 1) {
+          o.lastPercent = this.data.stockResultList[i].prices[1];
+        } else {
+          o.lastPercent = '暂无';
+        }
+        finalResult.push(o);
+      }
+      console.log(finalResult);
+      var sortedList = finalResult.sort(function (a, b) { 
         if (a['code'] > b['code']) {
           return 1; // 如果是降序排序，返回-1。
         } else if (a['code'] === b['code']) {
@@ -107,7 +125,7 @@ Page({
         }
         })
       this.setData({
-        stockDisplayList: sortedList
+        stockDisplayList: finalResult
       })
     }
   },

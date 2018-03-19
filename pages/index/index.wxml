@@ -19,48 +19,22 @@
     </block>
   </view>
   <view wx-if="{{stockList.length!=0}}" class='row-center'>
-    <view class='bubble-back'>
-      <view class='bold-style bubble-title'>亚马逊</view>
-      <view class='bubble-sub-title'>AMZN</view>
-      <view class='table bubble-content'>
+    <view class='bubble-back' wx:for="{{stockDisplayList}}" wx:for-item="stock" wx:key="{{stock.code}}">
+      <view class='bold-style bubble-title'>{{stock.name}}</view>
+      <view class='bubble-sub-title'>{{stock.code}}</view>
+      <view class='table bubble-content' style='margin: 12'>
         <view class='tr-bubble'>
-          <view class='th-bubble'>111</view>
-          <view class='th-bubble'>222</view>
-          <view class='th-bubble'>333</view>
+          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>最新价值</view>
+          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>最近涨幅</view>
+          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>上月涨幅</view>
+        </view>
+        <view style='background-color: #eeeeee; height: 6rpx;'></view>
+        <view class='tr-bubble'>
+          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.recentPrice}}</view>
+          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.recentPercent}}</view>
+          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.lastPercent}}</view>
         </view>
       </view>
-      
     </view>
-    <view class="stock-list">
-      <block wx:for="{{stockDisplayList}}" wx:for-item="stock" wx:key="objectId">
-        <view class='panel-text'>{{stock.code}}:</view>
-        <view class="table">
-          <view class="tr bg-w">
-            <view class="th">时间</view>
-            <view class="th">价值</view>
-            <view class="th">比率</view>
-          </view>
-          <block wx:for="{{stock.values}}" wx:key="{{date}}">
-            <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-              <view class="td">{{item.date}}</view>
-              <view class="td">{{item.price}}</view>
-              <view class="td">{{item.percent}}</view>
-            </view>
-            <view class="tr" wx:else>
-              <view class="td">{{item.date}}</view>
-              <view class="td">{{item.price}}</view>
-              <view class="td">{{item.percent}}</view>
-            </view>
-          </block>
-        </view>
-      </block>
-    </view>
-
-    <view class="stock-list">
-      <block wx:for="{{stockResultList}}" wx:for-item="stock" wx:key="objectId">
-
-      </block>
-    </view>
-
   </view>
 </view>

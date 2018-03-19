@@ -21,6 +21,13 @@ class StockPrice extends AV.Object {
   set code(value) {
     this.set('code', value);
   }
+
+  get name() {
+    return this.get('name');
+  }
+  set name(value) {
+    this.set('name', value);
+  }
 }
 
 AV.Object.register(StockPrice, 'StockPrice');

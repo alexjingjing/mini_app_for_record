@@ -24,9 +24,9 @@ align-items: center;
 }
 
 .bubble-content {
-  margin-top: 10rpx;
-  margin-left: 24rpx;
-  margin-right: 24rpx;
+  margin-top: 32rpx;
+  margin-left: 48rpx;
+  margin-right: 48rpx;
 }
 
 .bubble-sub-title {
