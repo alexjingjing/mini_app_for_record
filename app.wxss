@@ -38,3 +38,20 @@
   height: 3rem;
   align-items: center;
 }
+
+.tr-bubble {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.th-bubble {
+  width: 40%;
+  justify-content: center;
+  background: #FFFFFF;
+  color: #000;
+  display: flex;
+  height: 3rem;
+  align-items: center;
+}

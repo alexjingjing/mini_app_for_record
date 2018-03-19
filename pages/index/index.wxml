@@ -18,8 +18,19 @@
       <button bindtap="addUserStockList" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" hover-class="none" class="margin-button">提交</button>
     </block>
   </view>
-  <view wx-if="{{stockList.length!=0}}">
-    <text class='panel-text'>我的公司记录：</text>
+  <view wx-if="{{stockList.length!=0}}" class='row-center'>
+    <view class='bubble-back'>
+      <view class='bold-style bubble-title'>亚马逊</view>
+      <view class='bubble-sub-title'>AMZN</view>
+      <view class='table bubble-content'>
+        <view class='tr-bubble'>
+          <view class='th-bubble'>111</view>
+          <view class='th-bubble'>222</view>
+          <view class='th-bubble'>333</view>
+        </view>
+      </view>
+      
+    </view>
     <view class="stock-list">
       <block wx:for="{{stockDisplayList}}" wx:for-item="stock" wx:key="objectId">
         <view class='panel-text'>{{stock.code}}:</view>
