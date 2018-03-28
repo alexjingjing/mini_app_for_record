@@ -1,39 +1,67 @@
 /**index.wxss**/
+
 .userinfo {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
 }
 
 .row-center {
   display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .bold-style {
   font-weight: bold;
 }
 
-.bubble-title {
-  margin-top: 24rpx;
-  margin-left: 60rpx;
-  font-size: 11pt;
-  color: white
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2) {
+  .bubble-title {
+    margin-top: 28rpx;
+    margin-left: 60rpx;
+    font-size: 11pt;
+    color: white;
+  }
+
+  .bubble-content {
+    margin-top: 32rpx;
+    margin-left: 48rpx;
+    margin-right: 48rpx;
+  }
+
+  .bubble-font {
+    font-size: 11pt; 
+    color: #3a3a3a;
+  }
 }
 
-.bubble-content {
-  margin-top: 32rpx;
-  margin-left: 48rpx;
-  margin-right: 48rpx;
+@media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3) {
+  .bubble-title {
+    margin-top: 32rpx;
+    margin-left: 60rpx;
+    font-size: 11pt;
+    color: white;
+  }
+
+  .bubble-content {
+    margin-top: 48rpx;
+    margin-left: 48rpx;
+    margin-right: 48rpx;
+  }
+
+  .bubble-font {
+    font-size: 15pt; 
+    color: #3a3a3a;
+  }
 }
 
 .bubble-sub-title {
   margin-top: 4rpx;
   margin-left: 60rpx;
   font-size: 7pt;
-  color: white
+  color: white;
 }
 
 .bubble-back {
@@ -64,7 +92,7 @@ align-items: center;
 
 .checkbox {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
 }
 
 .margin-button {

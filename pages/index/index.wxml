@@ -24,15 +24,15 @@
       <view class='bubble-sub-title'>{{stock.code}}</view>
       <view class='table bubble-content' style='margin: 12'>
         <view class='tr-bubble'>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>最新价值</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>最近涨幅</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>上月涨幅</view>
+          <view class='th-bubble'><text class='bubble-font'>最新价值</text></view>
+          <view class='th-bubble bubble-font'>最近涨幅</view>
+          <view class='th-bubble bubble-font'>上月涨幅</view>
         </view>
-        <view style='background-color: #eeeeee; height: 6rpx;'></view>
+        <view style='background-color: #eeeeee; height: 6rpx; margin-bottom: 8rpx;'></view>
         <view class='tr-bubble'>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.recentPrice}}</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.recentPercent}}</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.lastPercent}}</view>
+          <view class='th-bubble bubble-font'>{{stock.recentPrice}}</view>
+          <view class='th-bubble bubble-font'>{{stock.recentPercent}}</view>
+          <view class='th-bubble bubble-font'>{{stock.lastPercent}}</view>
         </view>
       </view>
     </view>

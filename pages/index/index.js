@@ -108,7 +108,7 @@ Page({
           o.recentPercent = this.data.stockResultList[i].percents[0];
         }
         if (this.data.stockResultList[i].prices && this.data.stockResultList[i].prices.length > 1) {
-          o.lastPercent = this.data.stockResultList[i].prices[1];
+          o.lastPercent = this.data.stockResultList[i].percents[1];
         } else {
           o.lastPercent = '暂无';
         }
