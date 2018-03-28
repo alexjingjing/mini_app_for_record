@@ -54,7 +54,7 @@ Page({
           stockList: result[0].stockList,
           day: result[0].day
         });
-        this.getStockResultList(result[0].stockList, this.getDateList(result[0].day));
+        this.getStockResultList(result[0].stockList, util.getDateList(result[0].day));
       }
     });
   },
@@ -128,18 +128,6 @@ Page({
       })
     }
   },
-  getDateList: function(day) {
-    var dates = [];
-    if (!day || day == undefined) {
-      day = 1;
-    }
-    for (var i = 0; i < 10; i++) {
-      var d = new Date();
-      var targetDate = new Date(d.getFullYear(), d.getMonth() - i, day);
-      dates.push(util.formatMyTime(targetDate));
-    }
-    return dates;
-  },
   addUserStockList: function () {
     if (this.data.chosenList.length == 0) {
       wx.showToast({
@@ -196,7 +184,7 @@ Page({
     var index = e.currentTarget.dataset.index;
     var stock = this.data.stockDisplayList[index];
     wx.navigateTo({
-      url: '../detail/detail?code=' + stock.code + '&name=' + stock.name + '&recentPrice=' + stock.recentPrice + '&recentPercent=' + stock.recentPercent + '&lastPercent=' + stock.lastPercent,
+      url: '../detail/detail?code=' + stock.code + '&name=' + stock.name + '&recentPrice=' + stock.recentPrice + '&recentPercent=' + stock.recentPercent + '&lastPercent=' + stock.lastPercent + '&day=' + this.data.day,
     })
   },
   checkUserStock: function () {

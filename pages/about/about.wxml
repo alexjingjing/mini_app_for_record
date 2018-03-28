@@ -1,0 +1,18 @@
+<!--about.wxml-->
+<view class="container row-center">
+  <text class='title'>关于GAFATA小助手</text>
+  <text class='content'>受李笑来老师的启发</text>
+  <text class='content'>把笑来老师的作业做成小程序</text>
+  <text class='content'>现在数据更新为每月更新</text>
+  <text class='content'>会根据大家的反馈定期更新小程序</text>
+  <text class='content'>还会有如下更新：</text>
+  <text class='content'>1、更换关注的公司</text>
+  <text class='content'>2、切换数据更新时间</text>
+  <text class='content'>3、更多的公司</text>
+  <text class='content'>4、关于我们界面的优化</text>
+  <text class='content'>......</text>
+  <text class='content'>不走心的关于小程序</text>
+  <text class='content'>先做成这样吧</text>
+  <text class='content'>作者：</text>
+  <text class='content'>一二三亖三二一</text>
+</view>

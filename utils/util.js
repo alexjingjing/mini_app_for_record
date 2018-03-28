@@ -9,6 +9,19 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const getDateList = day => {
+  var dates = [];
+  if (!day || day == undefined) {
+    day = 1;
+  }
+  for (var i = 0; i < 10; i++) {
+    var d = new Date();
+    var targetDate = new Date(d.getFullYear(), d.getMonth() - i, day);
+    dates.push(formatMyTime(targetDate));
+  }
+  return dates;
+}
+
 const formatMyTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -23,6 +36,7 @@ const formatNumber = n => {
 }
 
 module.exports = {
+  getDateList: getDateList,
   formatTime: formatTime,
   formatMyTime: formatMyTime
 }

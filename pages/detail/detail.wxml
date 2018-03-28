@@ -1,40 +1,44 @@
-<!--index.wxml-->
+<!--detail.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view wx-if="{{stockList.length==0}}">
-    <block>
-      <text class='panel-text'>请选择你关注的：</text>
-      <checkbox-group bindchange="checkboxChange">
-        <label class="checkbox" wx:for="{{items}}" wx:key="{{item.value}}">
-          <checkbox value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
-        </label>
-      </checkbox-group>
-      <button bindtap="addUserStockList" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" hover-class="none" class="margin-button">提交</button>
-    </block>
-  </view>
-  <view wx-if="{{stockList.length!=0}}" class='row-center'>
-    <view class='bubble-back' wx:for="{{stockDisplayList}}" wx:for-item="stock" wx:key="{{stock.code}}">
+  <view class='row-center'>
+    <view class='bubble-back'>
       <view class='bold-style bubble-title'>{{stock.name}}</view>
       <view class='bubble-sub-title'>{{stock.code}}</view>
       <view class='table bubble-content' style='margin: 12'>
         <view class='tr-bubble'>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>最新价值</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>最近涨幅</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>上月涨幅</view>
+          <view class='th-bubble'>
+            <text class='bubble-font'>最新价值</text>
+          </view>
+          <view class='th-bubble bubble-font'>最近涨幅</view>
+          <view class='th-bubble bubble-font'>上月涨幅</view>
         </view>
-        <view style='background-color: #eeeeee; height: 6rpx;'></view>
+        <view style='background-color: #eeeeee; height: 6rpx; margin-bottom: 8rpx;'></view>
         <view class='tr-bubble'>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.recentPrice}}</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.recentPercent}}</view>
-          <view class='th-bubble' style='font-size: 11pt; color: #3a3a3a'>{{stock.lastPercent}}</view>
+          <view class='th-bubble bubble-font'>{{stock.recentPrice}}</view>
+          <view class='th-bubble bubble-font'>{{stock.recentPercent}}</view>
+          <view class='th-bubble bubble-font'>{{stock.lastPercent}}</view>
         </view>
       </view>
     </view>
+  <text style='font-size: 12pt; color: #3a3a3a'>最近更新日期：{{recentDay}}</text>
+  </view>
+  <view class="table">
+    <view class="tr bg-w">
+      <view class="th">日期</view>
+      <view class="th">价值</view>
+      <view class="th">幅度</view>
+    </view>
+    <block wx:for="{{stockDisplayList}}" wx:key="{{date}}">
+      <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.price}}</view>
+        <view class="td">{{item.percent}}</view>
+      </view>
+      <view class="tr" wx:else>
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.price}}</view>
+        <view class="td">{{item.percent}}</view>
+      </view>
+    </block>
   </view>
 </view>

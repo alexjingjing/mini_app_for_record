@@ -8,22 +8,9 @@ const app = getApp()
 
 Page({
   data: {
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    items: [
-      { name: 'GOOG', value: '谷歌' },
-      { name: 'AMZN', value: '亚马逊' },
-      { name: 'FB', value: 'FaceBook' },
-      { name: 'AAPL', value: '苹果' },
-      { name: '00700', value: '腾讯' },
-      { name: 'BABA', value: '阿里巴巴' },
-      { name: 'TSLA', value: '特斯拉' },
-    ],
-    day: '',
-    stockList: [],
+    stock: {},
     stockResultList: [],
-    stockDisplayList: [],
-    chosenList: [],
+    recentDay: ''
   },
   showNetworkError: function () {
     wx.showModal({
@@ -34,43 +21,45 @@ Page({
   },
   onReady: function () {
     console.log('page ready');
-    
+    this.getUserStockList();
+  },
+  getUserStockList: function () {
+    var dateList = util.getDateList(this.data.stock.day);
+    const stockQuery = new AV.Query(StockPrice)
+      .equalTo('code', this.data.stock.code)
+      .containedIn('date', dateList)
+      .ascending('date');
+    stockQuery.find().then(result => {
+      this.formStockResultList(result);
+    })
+  },
+  formStockResultList: function (resultList) {
+    var values = [];
+    var xAxis = [];
+    var prices = [];
+    var percents = [];
+    for (var i = 0; i < resultList.length; i++) {
+      var value = {};
+      value.date = resultList[i].date;
+      value.price = resultList[i].price;
+      xAxis.push(resultList[i].date);
+      prices.push(resultList[i].price);
+      var percent = parseFloat((((resultList[i].price - resultList[0].price) / resultList[0].price) * 100).toFixed(2));
+      percents.push(percent);
+      value.percent = percent;
+      values.push(value);
+    }
+    this.setData({
+      stockDisplayList: values
+    })
   },
   onLoad: function (options) {
     console.log(options);
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+    var d = new Date();
+    var recentDay = util.formatMyTime(new Date(d.getFullYear(), d.getMonth(), options.day));
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      stock: options,
+      recentDay: recentDay
     })
   }
 })
