@@ -114,7 +114,6 @@ Page({
         }
         finalResult.push(o);
       }
-      console.log(finalResult);
       var sortedList = finalResult.sort(function (a, b) { 
         if (a['code'] > b['code']) {
           return 1; // 如果是降序排序，返回-1。
@@ -191,6 +190,13 @@ Page({
   bindViewTap: function () {
     wx.navigateTo({
       url: '../about/about'
+    })
+  },
+  jumpToDetail: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var stock = this.data.stockDisplayList[index];
+    wx.navigateTo({
+      url: '../detail/detail?code=' + stock.code + '&name=' + stock.name + '&recentPrice=' + stock.recentPrice + '&recentPercent=' + stock.recentPercent + '&lastPercent=' + stock.lastPercent,
     })
   },
   checkUserStock: function () {

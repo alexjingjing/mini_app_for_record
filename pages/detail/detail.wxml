@@ -19,7 +19,7 @@
     </block>
   </view>
   <view wx-if="{{stockList.length!=0}}" class='row-center'>
-    <view class='bubble-back' wx:for="{{stockDisplayList}}" wx:for-item="stock" wx:key="{{stock.code}}" bindtap='jumpToDetail' data-index="{{index}}">
+    <view class='bubble-back' wx:for="{{stockDisplayList}}" wx:for-item="stock" wx:key="{{stock.code}}">
       <view class='bold-style bubble-title'>{{stock.name}}</view>
       <view class='bubble-sub-title'>{{stock.code}}</view>
       <view class='table bubble-content' style='margin: 12'>
